@@ -13,7 +13,7 @@ class LexicalAnalyzerTest < Minitest::Test
   def test_that_it_has_a_version_number
     refute_nil ::LexicalAnalyzer::VERSION
     assert(::LexicalAnalyzer::VERSION.is_a?(String))
-    assert(/\d+\.\d+\.\d+/ =~ ::LexicalAnalyzer::VERSION)
+    assert(/^\d+\.\d+\.\d+/ =~ ::LexicalAnalyzer::VERSION)
   end
 
 end
