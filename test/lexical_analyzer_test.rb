@@ -16,4 +16,8 @@ class LexicalAnalyzerTest < Minitest::Test
     assert(/^\d+\.\d+\.\d+/ =~ ::LexicalAnalyzer::VERSION)
   end
 
+  def test_that_key_classes_exist
+    assert(LexicalAnalyzer.is_a?(Class))
+    assert(LexicalRule.is_a?(Class))
+  end
 end
