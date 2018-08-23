@@ -35,4 +35,4 @@ The gem is available as open source under the terms of the
 
 Everyone interacting in the LexicalAnalyzer project’s codebases, issue
 trackers, chat rooms and mailing lists is expected to follow the
-[code of conduct](https://github.com/PeterCamilleri/lexical_analyzer/blob/master/CODE_OF_CONDUCT.md).
+[code of conduct](./CODE_OF_CONDUCT.md).
