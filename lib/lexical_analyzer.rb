@@ -16,9 +16,4 @@ class LexicalAnalyzer
     @text = text
   end
 
-  # Add some more text.
-  def add_text(text)
-    @text << text
-  end
-
 end
