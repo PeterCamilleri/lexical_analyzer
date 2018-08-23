@@ -20,4 +20,14 @@ class LexicalAnalyzerTest < Minitest::Test
     assert(LexicalAnalyzer.is_a?(Class))
     assert(LexicalRule.is_a?(Class))
   end
+
+  def test_that_it_has_properties
+    la = LexicalAnalyzer.new
+
+    assert_equal("", la.text)
+    la.add_text("A B C")
+    assert_equal("A B C", la.text)
+    la.add_text(" D E F")
+    assert_equal("A B C D E F", la.text)
+  end
 end

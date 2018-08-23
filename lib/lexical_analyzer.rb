@@ -7,5 +7,18 @@ require_relative 'lexical_analyzer/version'
 # Scan input and extract lexical tokens.
 
 class LexicalAnalyzer
-  # Your code goes here...
+
+  # Access the text in the analyzer.
+  attr_reader :text
+
+  # Set things up.
+  def initialize(text: "")
+    @text = text
+  end
+
+  # Add some more text.
+  def add_text(text)
+    @text << text
+  end
+
 end
