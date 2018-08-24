@@ -24,7 +24,13 @@ class LexicalAnalyzer
     rules.each do |rule|
       if match_data = text.match(rule[1])
         @text = match_data.post_match
-        return [rule[0], match_data.to_s]
+        if rule[2]
+          token = rule[2].call(rule, match_data.to_s)
+        else
+          token = [rule[0], match_data.to_s]
+        end
+
+        return token if token
       end
 
     end

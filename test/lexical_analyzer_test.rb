@@ -35,7 +35,7 @@ class LexicalAnalyzerTest < Minitest::Test
 
   def test_some_lexical_analyzing
     text = "A B C"
-    rules = [[:space, /\A\s+/],
+    rules = [[nil, /\A\s+/, Proc.new {}],
              [:A, /\AA/],
              [:B, /\AB/],
              [:C, /\AC/]]
@@ -43,11 +43,7 @@ class LexicalAnalyzerTest < Minitest::Test
     la = LexicalAnalyzer.new(text: text, rules: rules)
 
     assert_equal([:A, "A"], la.get)
-    assert_equal([:space, " "], la.get)
-
     assert_equal([:B, "B"], la.get)
-    assert_equal([:space, " "], la.get)
-
     assert_equal([:C, "C"], la.get)
 
     assert_equal(false, la.get)
