@@ -32,4 +32,25 @@ class LexicalAnalyzerTest < Minitest::Test
     la.rules <<  5
     assert_equal([4,5], la.rules)
   end
+
+  def test_some_lexical_analyzing
+    text = "A B C"
+    rules = [[:space, /\A\s+/],
+             [:A, /\AA/],
+             [:B, /\AB/],
+             [:C, /\AC/]]
+
+    la = LexicalAnalyzer.new(text: text, rules: rules)
+
+    assert_equal([:A, "A"], la.get)
+    assert_equal([:space, " "], la.get)
+
+    assert_equal([:B, "B"], la.get)
+    assert_equal([:space, " "], la.get)
+
+    assert_equal([:C, "C"], la.get)
+
+    assert_equal(false, la.get)
+  end
+
 end

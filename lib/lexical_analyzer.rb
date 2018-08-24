@@ -19,4 +19,18 @@ class LexicalAnalyzer
     @rules = rules
   end
 
+  # Get the next lexical token
+  def get
+    rules.each do |rule|
+      if match_data = text.match(rule[1])
+        @text = match_data.post_match
+        return [rule[0], match_data.to_s]
+      end
+
+    end
+
+    false
+
+  end
+
 end
