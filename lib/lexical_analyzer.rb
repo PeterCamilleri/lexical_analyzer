@@ -14,7 +14,7 @@ class LexicalAnalyzer
   attr_reader :rules
 
   # The default tokenizer block
-  DTB = lambda {|rule, value| [rule[0], value] }
+  DTB = lambda {|symbol, value| [symbol, value] }
 
   # Set things up.
   def initialize(text: "", rules: [])
@@ -27,7 +27,7 @@ class LexicalAnalyzer
     rules.each do |rule|
       if match_data = text.match(rule[1])
         @text = match_data.post_match
-        token = (rule[2] || DTB).call(rule, match_data.to_s)
+        token = (rule[2] || DTB).call(rule[0], match_data.to_s)
         return token if token
       end
 
