@@ -1,6 +1,5 @@
 # coding: utf-8
 
-require_relative 'lexical_analyzer/lexical_rule'
 require_relative 'lexical_analyzer/version'
 
 # The Ruby Compiler Toolkit Project - Lexical Analyzer

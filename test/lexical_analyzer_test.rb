@@ -18,7 +18,6 @@ class LexicalAnalyzerTest < Minitest::Test
 
   def test_that_key_classes_exist
     assert(LexicalAnalyzer.is_a?(Class))
-    assert(LexicalRule.is_a?(Class))
   end
 
   def test_that_it_has_properties
