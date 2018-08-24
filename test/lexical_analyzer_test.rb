@@ -24,5 +24,8 @@ class LexicalAnalyzerTest < Minitest::Test
   def test_that_it_has_properties
     la = LexicalAnalyzer.new(text: "A B C")
     assert_equal("A B C", la.text)
+
+    la.text << " D E F"
+    assert_equal("A B C D E F", la.text)
   end
 end
