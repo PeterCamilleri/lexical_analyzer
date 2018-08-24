@@ -27,5 +27,7 @@ class LexicalAnalyzerTest < Minitest::Test
 
     la.text << " D E F"
     assert_equal("A B C D E F", la.text)
+
+    assert_equal([], la.rules)
   end
 end

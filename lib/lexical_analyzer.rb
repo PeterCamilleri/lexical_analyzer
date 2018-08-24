@@ -11,9 +11,13 @@ class LexicalAnalyzer
   # Access the text in the analyzer.
   attr_reader :text
 
+  # Access the array of lexical rules.
+  attr_reader :rules
+
   # Set things up.
-  def initialize(text: "")
+  def initialize(text: "", rules: [])
     @text = text
+    @rules = rules
   end
 
 end
