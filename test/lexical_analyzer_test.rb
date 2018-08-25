@@ -35,20 +35,27 @@ class LexicalAnalyzerTest < Minitest::Test
 
   def test_some_lexical_analyzing
     text   = <<-END_OF_SOURCE
-                a (big) cat
+                if (big)
+                  cat = 99;
                 END_OF_SOURCE
 
     rules  = [[:spaces,     /\A\s+/, Proc.new { false }],
               [:lparen,     /\A\(/],
               [:rparen,     /\A\)/],
+              [:semicolon,  /\A;/],
+              [:assignment, /\A=/],
+              [:integer,    /\A\d+/ ],
               [:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/]
              ]
 
-    values = [[:identifier, "a"  ],
+    values = [[:identifier, "if"  ],
               [:lparen,     "("  ],
               [:identifier, "big"],
               [:rparen,     ")"  ],
               [:identifier, "cat"],
+              [:assignment, "="  ],
+              [:integer,    "99" ],
+              [:semicolon,  ";"  ],
               false
              ]
 
