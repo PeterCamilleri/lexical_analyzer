@@ -1,6 +1,10 @@
 # LexicalAnalyzer
 
-WIP
+The lexical analyzer is a component of the Ruby Compiler Toolkit Project that
+scans an input text against an array of rules and generating the lexical
+tokens that it detects. It is normally used in conjunction with a parse queue
+object which handles queuing of tokens and back tracking of the compile process
+when needed.
 
 ## Installation
 
@@ -20,8 +24,13 @@ Or install it yourself as:
 
 ## Usage
 
-The lexical analyzer is created with two keyword parameters, the text to be
-analyzed and an array of rules for performing that task.
+A lexical analyzer object is created with two keyword parameters, the text to
+be analyzed and an array of rules for performing that task.
+
+```ruby
+lexical_analyser = LexicalAnalyzer.new(text: text, rules: rules)
+
+```
 
 #### Rules
 
@@ -47,6 +56,10 @@ lambda {|_symbol, value| ka.set_text(value).get
 
 ```
 
+Note: The order of rules is important. For example, if there are two rules
+looking for "==" and "=" respectively, if the "=" is ahead of the "==" rule
+in the array the "==" rule will never trigger and the analysis will be
+incorrect.
 
 #### Tokens
 
