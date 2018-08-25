@@ -27,8 +27,8 @@ class LexicalAnalyzer
     rules.each do |rule|
       if match_data = text.match(rule[1])
         @text = match_data.post_match
-        token = (rule[2] || DTB).call(rule[0], match_data.to_s)
-        return token || get
+
+        return (rule[2] || DTB).call(rule[0], match_data.to_s) || get
       end
 
     end
