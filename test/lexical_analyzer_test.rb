@@ -44,13 +44,18 @@ class LexicalAnalyzerTest < Minitest::Test
                 END_OF_SOURCE
 
     # Set up the keyword sub analyzer.
-    keywords = [[:if,         /\Aif\z/],
+    keywords = [
+                [:if,         /\Aif\z/],
                 [:identifier, /.+/    ]
                ]
     ka = LexicalAnalyzer.new(rules: keywords)
 
     # Set up the main analyzer.
-    rules  = [[:spaces,     /\A\s+/, Proc.new { false }],
+    rules  = [
+              [:spaces,
+               /\A\s+/,
+               Proc.new { false }
+              ],
               [:lparen,     /\A\(/ ],
               [:rparen,     /\A\)/ ],
               [:semicolon,  /\A;/  ],
@@ -65,7 +70,8 @@ class LexicalAnalyzerTest < Minitest::Test
     la = LexicalAnalyzer.new(text: text, rules: rules)
 
     # The values we expect to get.
-    values = [[:if,        "if"  ],
+    values = [
+              [:if,        "if"  ],
               [:lparen,     "("  ],
               [:identifier, "big"],
               [:equality,   "==" ],
