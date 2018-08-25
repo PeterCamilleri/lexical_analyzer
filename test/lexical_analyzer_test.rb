@@ -37,11 +37,19 @@ class LexicalAnalyzerTest < Minitest::Test
   end
 
   def test_some_lexical_analyzing
+    # The source code to be analyzed.
     text   = <<-END_OF_SOURCE
                 if (big==42)
                   cat = 99;
                 END_OF_SOURCE
 
+    # Set up the keyword sub analyzer.
+    keywords = [[:if,    /\Aif\z/],
+                [:identifier, /.+/ ]
+               ]
+    ka = LexicalAnalyzer.new(rules: keywords)
+
+    # Set up the main analyzer.
     rules  = [[:spaces,     /\A\s+/, Proc.new { false }],
               [:lparen,     /\A\(/],
               [:rparen,     /\A\)/],
@@ -49,10 +57,15 @@ class LexicalAnalyzerTest < Minitest::Test
               [:equality,   /\A==/],
               [:assignment, /\A=/],
               [:integer,    /\A\d+/ ],
-              [:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/]
+              [:identifier,
+               /\A[a-zA-Z_]\w*(?=\W|$|\z)/,
+               lambda {|_symbol, value| ka.set_text(value).get }
+              ]
              ]
+    la = LexicalAnalyzer.new(text: text, rules: rules)
 
-    values = [[:identifier, "if"  ],
+    # The values we expect to get.
+    values = [[:if,        "if"  ],
               [:lparen,     "("  ],
               [:identifier, "big"],
               [:equality,   "==" ],
@@ -65,8 +78,7 @@ class LexicalAnalyzerTest < Minitest::Test
               false
              ]
 
-    la = LexicalAnalyzer.new(text: text, rules: rules)
-
+    # Run the tests.
     values.each do |value|
       assert_equal(value, la.get)
     end
