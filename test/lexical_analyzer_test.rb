@@ -34,15 +34,19 @@ class LexicalAnalyzerTest < Minitest::Test
   end
 
   def test_some_lexical_analyzing
-    text = "A B C"
-    rules = [[nil, /\A\s+/, Proc.new { false }],
+    text = "a (big) cat"
+    rules = [[nil,         /\A\s+/, Proc.new { false }],
+             [:lparen,     /\A\(/],
+             [:rparen,     /\A\)/],
              [:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/]]
 
     la = LexicalAnalyzer.new(text: text, rules: rules)
 
-    assert_equal([:identifier, "A"], la.get)
-    assert_equal([:identifier, "B"], la.get)
-    assert_equal([:identifier, "C"], la.get)
+    assert_equal([:identifier, "a"  ], la.get)
+    assert_equal([:lparen,     "("  ], la.get)
+    assert_equal([:identifier, "big"], la.get)
+    assert_equal([:rparen,     ")"  ], la.get)
+    assert_equal([:identifier, "cat"], la.get)
 
     assert_equal(false, la.get)
   end
