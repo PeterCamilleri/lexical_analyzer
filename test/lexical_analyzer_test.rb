@@ -35,7 +35,7 @@ class LexicalAnalyzerTest < Minitest::Test
 
   def test_some_lexical_analyzing
     text   = <<-END_OF_SOURCE
-                if (big)
+                if (big==42)
                   cat = 99;
                 END_OF_SOURCE
 
@@ -43,6 +43,7 @@ class LexicalAnalyzerTest < Minitest::Test
               [:lparen,     /\A\(/],
               [:rparen,     /\A\)/],
               [:semicolon,  /\A;/],
+              [:equality,   /\A==/],
               [:assignment, /\A=/],
               [:integer,    /\A\d+/ ],
               [:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/]
@@ -51,6 +52,8 @@ class LexicalAnalyzerTest < Minitest::Test
     values = [[:identifier, "if"  ],
               [:lparen,     "("  ],
               [:identifier, "big"],
+              [:equality,   "==" ],
+              [:integer,    "42" ],
               [:rparen,     ")"  ],
               [:identifier, "cat"],
               [:assignment, "="  ],
