@@ -35,7 +35,7 @@ class LexicalAnalyzerTest < Minitest::Test
 
   def test_some_lexical_analyzing
     text = "A B C"
-    rules = [[nil, /\A\s+/, Proc.new {}],
+    rules = [[nil, /\A\s+/, Proc.new { false }],
              [:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/]]
 
     la = LexicalAnalyzer.new(text: text, rules: rules)
