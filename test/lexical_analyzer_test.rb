@@ -44,19 +44,19 @@ class LexicalAnalyzerTest < Minitest::Test
                 END_OF_SOURCE
 
     # Set up the keyword sub analyzer.
-    keywords = [[:if,    /\Aif\z/],
-                [:identifier, /.+/ ]
+    keywords = [[:if,         /\Aif\z/],
+                [:identifier, /.+/    ]
                ]
     ka = LexicalAnalyzer.new(rules: keywords)
 
     # Set up the main analyzer.
     rules  = [[:spaces,     /\A\s+/, Proc.new { false }],
-              [:lparen,     /\A\(/],
-              [:rparen,     /\A\)/],
-              [:semicolon,  /\A;/],
-              [:equality,   /\A==/],
-              [:assignment, /\A=/],
-              [:integer,    /\A\d+/ ],
+              [:lparen,     /\A\(/ ],
+              [:rparen,     /\A\)/ ],
+              [:semicolon,  /\A;/  ],
+              [:equality,   /\A==/ ],
+              [:assignment, /\A=/  ],
+              [:integer,    /\A\d+/],
               [:identifier,
                /\A[a-zA-Z_]\w*(?=\W|$|\z)/,
                lambda {|_symbol, value| ka.set_text(value).get }
