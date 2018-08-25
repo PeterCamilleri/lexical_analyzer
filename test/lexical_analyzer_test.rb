@@ -36,7 +36,7 @@ class LexicalAnalyzerTest < Minitest::Test
   def test_some_lexical_analyzing
     text   = "a (big) cat"
 
-    rules  = [[nil,         /\A\s+/, Proc.new { false }],
+    rules  = [[:spaces,     /\A\s+/, Proc.new { false }],
               [:lparen,     /\A\(/],
               [:rparen,     /\A\)/],
               [:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/]
