@@ -31,6 +31,9 @@ class LexicalAnalyzerTest < Minitest::Test
 
     la.rules <<  5
     assert_equal([4,5], la.rules)
+
+    assert_equal(la, la.set_text("Hello"))
+    assert_equal("Hello", la.text)
   end
 
   def test_some_lexical_analyzing

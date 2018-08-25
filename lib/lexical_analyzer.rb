@@ -22,6 +22,12 @@ class LexicalAnalyzer
     @rules = rules
   end
 
+  # Set the text.
+  def set_text(text)
+    @text = text
+    self
+  end
+
   # Get the next lexical token
   def get
     rules.each do |rule|
@@ -30,11 +36,9 @@ class LexicalAnalyzer
 
         return (rule[2] || DTB).call(rule[0], match_data.to_s) || get
       end
-
     end
 
     false
-
   end
 
 end
