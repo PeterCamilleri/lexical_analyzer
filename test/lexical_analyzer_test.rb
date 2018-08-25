@@ -34,7 +34,9 @@ class LexicalAnalyzerTest < Minitest::Test
   end
 
   def test_some_lexical_analyzing
-    text   = "a (big) cat"
+    text   = <<-END_OF_SOURCE
+                a (big) cat
+                END_OF_SOURCE
 
     rules  = [[:spaces,     /\A\s+/, Proc.new { false }],
               [:lparen,     /\A\(/],
