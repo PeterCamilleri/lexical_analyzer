@@ -13,6 +13,11 @@ class LexicalAnalyzer
   # Access the array of lexical rules.
   attr_reader :rules
 
+  # Some array index values.
+  SYMBOL = 0
+  REGEX  = 1
+  BLOCK  = 2
+
   # The default tokenizer block
   DTB = lambda {|symbol, value| [symbol, value] }
 
@@ -31,10 +36,10 @@ class LexicalAnalyzer
   # Get the next lexical token
   def get
     rules.each do |rule|
-      if match_data = text.match(rule[1])
+      if match_data = text.match(rule[REGEX])
         @text = match_data.post_match
 
-        return (rule[2] || DTB).call(rule[0], match_data.to_s) || get
+        return (rule[BLOCK] || DTB).call(rule[SYMBOL], match_data.to_s) || get
       end
     end
 
