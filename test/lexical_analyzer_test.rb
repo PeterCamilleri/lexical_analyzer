@@ -1,5 +1,3 @@
-# coding: utf-8
-
 require_relative '../lib/lexical_analyzer'
 gem              'minitest'
 require          'minitest/autorun'

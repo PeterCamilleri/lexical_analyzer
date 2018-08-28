@@ -1,9 +1,7 @@
-# coding: utf-8
-
-require_relative 'lexical_analyzer/version'
-
 # The Ruby Compiler Toolkit Project - Lexical Analyzer
 # Scan input and extract lexical tokens.
+
+require_relative 'lexical_analyzer/version'
 
 class LexicalAnalyzer
 
