@@ -4,12 +4,8 @@
 require_relative 'lexical_analyzer/version'
 
 class LexicalAnalyzer
-
-  # Access the text in the analyzer.
-  attr_accessor :text
-
-  # Access the array of lexical rules.
-  attr_reader :rules
+  attr_accessor :text   # Access the text in the analyzer.
+  attr_reader   :rules  # Access the array of lexical rules.
 
   # Some array index values.
   SYMBOL = 0
@@ -30,7 +26,6 @@ class LexicalAnalyzer
     rules.each do |rule|
       if match_data = text.match(rule[REGEX])
         @text = match_data.post_match
-
         return (rule[BLOCK] || DTB).call(rule[SYMBOL], match_data.to_s) || get
       end
     end
