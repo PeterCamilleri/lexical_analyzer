@@ -8,7 +8,7 @@ require_relative 'lexical_analyzer/version'
 class LexicalAnalyzer
 
   # Access the text in the analyzer.
-  attr_reader :text
+  attr_accessor :text
 
   # Access the array of lexical rules.
   attr_reader :rules
@@ -23,14 +23,8 @@ class LexicalAnalyzer
 
   # Set things up.
   def initialize(text: "", rules: [])
-    @text = text
+    @text  = text
     @rules = rules
-  end
-
-  # Set the text.
-  def set_text(text)
-    @text = text
-    self
   end
 
   # Get the next lexical token
@@ -45,5 +39,4 @@ class LexicalAnalyzer
 
     false
   end
-
 end
