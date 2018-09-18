@@ -61,7 +61,9 @@ class LexicalAnalyzerTest < Minitest::Test
               [:integer,    /\A\d+/],
               [:identifier,
                /\A[a-zA-Z_]\w*(?=\W|$|\z)/,
-               lambda {|_symbol, value| LexicalAnalyzer.new(text: value, rules: keywords).get }
+               lambda do |_symbol, value|
+                 LexicalAnalyzer.new(text: value, rules: keywords).get
+               end
               ]
              ]
     la = LexicalAnalyzer.new(text: text, rules: rules)
