@@ -48,40 +48,33 @@ class LexicalAnalyzerTest < Minitest::Test
                ]
 
     # Set up the main analyzer.
-    rules  = [
-              [:spaces,
-               /\A\s+/,
-               Proc.new { false }
-              ],
-              [:lparen,     /\A\(/ ],
-              [:rparen,     /\A\)/ ],
-              [:semicolon,  /\A;/  ],
-              [:equality,   /\A==/ ],
-              [:assignment, /\A=/  ],
-              [:integer,    /\A\d+/],
-              [:identifier,
-               /\A[a-zA-Z_]\w*(?=\W|$|\z)/,
-               lambda do |_symbol, value|
-                 LexicalAnalyzer.new(text: value, rules: keywords).get
-               end
-              ]
-             ]
+    rules  = [ [:spaces,     /\A\s+/,
+                Proc.new { false } ],
+               [:lparen,     /\A\(/ ],
+               [:rparen,     /\A\)/ ],
+               [:semicolon,  /\A;/  ],
+               [:equality,   /\A==/ ],
+               [:assignment, /\A=/  ],
+               [:integer,    /\A\d+/],
+               [:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/,
+                lambda do |_symbol, value|
+                  LexicalAnalyzer.new(text: value, rules: keywords).get
+                end] ]
+
     la = LexicalAnalyzer.new(text: text, rules: rules)
 
     # The values we expect to get.
-    values = [
-              [:if,        "if"  ],
-              [:lparen,     "("  ],
-              [:identifier, "big"],
-              [:equality,   "==" ],
-              [:integer,    "42" ],
-              [:rparen,     ")"  ],
-              [:identifier, "cat"],
-              [:assignment, "="  ],
-              [:integer,    "99" ],
-              [:semicolon,  ";"  ],
-              false
-             ]
+    values = [ [:if,        "if"  ],
+               [:lparen,     "("  ],
+               [:identifier, "big"],
+               [:equality,   "==" ],
+               [:integer,    "42" ],
+               [:rparen,     ")"  ],
+               [:identifier, "cat"],
+               [:assignment, "="  ],
+               [:integer,    "99" ],
+               [:semicolon,  ";"  ],
+               false ]
 
     # Run the tests.
     values.each do |value|
