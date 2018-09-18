@@ -3,8 +3,9 @@
 
 require_relative 'lexical_analyzer/version'
 
+# The RCTP class for lexical analysis.
 class LexicalAnalyzer
-  attr_accessor :text   # Access the text in the analyzer.
+  attr_reader   :text   # Access the text in the analyzer.
   attr_reader   :rules  # Access the array of lexical rules.
 
   # Some array index values.

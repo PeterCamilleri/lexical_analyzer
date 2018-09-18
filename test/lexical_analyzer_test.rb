@@ -30,7 +30,7 @@ class LexicalAnalyzerTest < Minitest::Test
     la.rules <<  5
     assert_equal([4,5], la.rules)
 
-    la.text ="Hello"
+    la = LexicalAnalyzer.new(text: "Hello", rules: [4])
     assert_equal("Hello", la.text)
   end
 
@@ -46,7 +46,6 @@ class LexicalAnalyzerTest < Minitest::Test
                 [:if,         /\Aif\z/],
                 [:identifier, /.+/    ]
                ]
-    ka = LexicalAnalyzer.new(rules: keywords)
 
     # Set up the main analyzer.
     rules  = [
@@ -62,7 +61,7 @@ class LexicalAnalyzerTest < Minitest::Test
               [:integer,    /\A\d+/],
               [:identifier,
                /\A[a-zA-Z_]\w*(?=\W|$|\z)/,
-               lambda {|_symbol, value| ka.text = value; ka.get }
+               lambda {|_symbol, value| LexicalAnalyzer.new(text: value, rules: keywords).get }
               ]
              ]
     la = LexicalAnalyzer.new(text: text, rules: rules)
