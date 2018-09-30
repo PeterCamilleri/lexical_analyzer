@@ -82,4 +82,28 @@ class LexicalAnalyzerTest < Minitest::Test
     end
   end
 
+  def test_with_extra_rules
+    # The source code to be analyzed.
+    text   = "123"
+
+    rules  = [ [:one,    /\A1/ ],
+               [:two,    /\A2/ ]
+             ]
+
+    extra  = [ [:three,  /\A3/  ]]
+
+    la = LexicalAnalyzer.new(text: text, rules: rules)
+
+    # The values we expect to get.
+    values = [ [:one,   "1" ],
+               [:two,   "2" ],
+               [:three, "3" ],
+               false ]
+
+    # Run the tests.
+    values.each do |value|
+      assert_equal(value, la.get(extra))
+    end
+  end
+
 end
