@@ -23,8 +23,8 @@ class LexicalAnalyzer
   end
 
   # Get the next lexical token
-  def get
-    rules.each do |rule|
+  def get(extra=[])
+    (rules + extra).each do |rule|
       if match_data = text.match(rule[REGEX])
         @text = match_data.post_match
         return (rule[BLOCK] || DTB).call(rule[SYMBOL], match_data.to_s) || get
