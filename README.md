@@ -71,7 +71,6 @@ lambda {|symbol, value| [symbol, value] }
 # A block you might use for an integer token
 lambda {|symbol, value| [symbol, value.to_i] }
 
-
 # Take the text retrieved and process it further with another analyzer.
 lambda {|_symbol, value| ka.renew(text: value).get }
 
