@@ -30,7 +30,24 @@ be analyzed and an array of rules for performing that task.
 ```ruby
 lexical_analyser = LexicalAnalyzer.new(text: text, rules: rules)
 
+token = lexical_analyser.get
+
 ```
+
+It is sometimes desirable to reuse an existing lexical analyzer. This can be
+done with the renew method.
+
+```ruby
+lexical_analyser.renew(text: new_text)
+
+token = lexical_analyser.get
+
+```
+
+Note: The renew method takes the same arguments as the new method, text and an
+array of rules. If these are omitted, the default is to leave that value
+unchanged. The renew method returns the updated lexical analyzer just like the
+new method returns the newly created one.
 
 #### Rules
 
@@ -52,7 +69,7 @@ Proc.new { false }
 lambda {|symbol, value| [symbol, value] }
 
 # Take the text retrieved and process it further with another analyzer.
-lambda {|_symbol, value| ka.set_text(value).get
+lambda {|_symbol, value| ka.renew(text: value).get }
 
 ```
 
@@ -88,7 +105,9 @@ action.
 
 #### Plan B
 
-Go to the GitHub repository and raise an issue calling attention to some
+Go to the GitHub repository and raise an
+[issue](https://github.com/PeterCamilleri/lexical_analyzer/issues)
+ calling attention to some
 aspect that could use some TLC or a suggestion or an idea.
 
 ## License

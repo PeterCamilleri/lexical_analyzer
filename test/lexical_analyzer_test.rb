@@ -47,6 +47,8 @@ class LexicalAnalyzerTest < Minitest::Test
                 [:identifier, /.+/    ]
                ]
 
+    ka = LexicalAnalyzer.new(rules: keywords)
+
     # Set up the main analyzer.
     rules  = [ [:spaces,     /\A\s+/,
                 Proc.new { false } ],
@@ -57,9 +59,9 @@ class LexicalAnalyzerTest < Minitest::Test
                [:assignment, /\A=/  ],
                [:integer,    /\A\d+/],
                [:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/,
-                lambda do |_symbol, value|
-                  LexicalAnalyzer.new(text: value, rules: keywords).get
-                end] ]
+                lambda { |_symbol, value| ka.renew(text: value).get }
+               ]
+             ]
 
     la = LexicalAnalyzer.new(text: text, rules: rules)
 
@@ -74,7 +76,8 @@ class LexicalAnalyzerTest < Minitest::Test
                [:assignment, "="  ],
                [:integer,    "99" ],
                [:semicolon,  ";"  ],
-               false ]
+               false
+             ]
 
     # Run the tests.
     values.each do |value|

@@ -22,6 +22,13 @@ class LexicalAnalyzer
     @rules = rules
   end
 
+  # Reuse an existing lexical analyzer.
+  def renew(text: @text, rules: @rules)
+    @text  = text
+    @rules = rules
+    self
+  end
+
   # Get the next lexical token
   def get(extra=[])
     (rules + extra).each do |rule|
