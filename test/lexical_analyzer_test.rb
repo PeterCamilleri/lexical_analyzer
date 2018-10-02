@@ -57,7 +57,9 @@ class LexicalAnalyzerTest < Minitest::Test
                [:semicolon,  /\A;/  ],
                [:equality,   /\A==/ ],
                [:assignment, /\A=/  ],
-               [:integer,    /\A\d+/],
+               [:integer,    /\A\d+/,
+                lambda { |symbol, value| [symbol, value.to_i] }
+               ],
                [:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/,
                 lambda { |_symbol, value| ka.renew(text: value).get }
                ]
@@ -70,11 +72,11 @@ class LexicalAnalyzerTest < Minitest::Test
                [:lparen,     "("  ],
                [:identifier, "big"],
                [:equality,   "==" ],
-               [:integer,    "42" ],
+               [:integer,    42   ],
                [:rparen,     ")"  ],
                [:identifier, "cat"],
                [:assignment, "="  ],
-               [:integer,    "99" ],
+               [:integer,    99   ],
                [:semicolon,  ";"  ],
                false
              ]
