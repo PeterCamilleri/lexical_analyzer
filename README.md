@@ -87,7 +87,7 @@ The token is also an array, with two elements.
 
 token[0] - the symbol extracted from the rule that generated this token.
 
-token[1] - the text that generated this token.
+token[1] - the text that generated this token or its value.
 
 
 #### Example
