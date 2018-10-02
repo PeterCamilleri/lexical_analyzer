@@ -51,7 +51,8 @@ class LexicalAnalyzerTest < Minitest::Test
 
     # Set up the main analyzer.
     rules  = [ [:spaces,     /\A\s+/,
-                Proc.new { false } ],
+                Proc.new { false }
+               ],
                [:lparen,     /\A\(/ ],
                [:rparen,     /\A\)/ ],
                [:semicolon,  /\A;/  ],
