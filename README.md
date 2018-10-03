@@ -62,7 +62,7 @@ LexicalRule.new(:equality, /\A==/)
 LexicalRule.new(:spaces, /\A\s+/) {|_value| false }
 
 # Rule with an integer block returns [:integer, an_integer] on a match.
-LexicalRule.new(:integer, /\A\d+/) {|value| [@symbol, value.to_i] }
+LexicalRule.new(:integer, /\A\d+/) {|value| [symbol, value.to_i] }
 
 # Rule with a block that expands of to a sub-rule. Returns the value of the
 # lexical analyzer in the captured variable ka.

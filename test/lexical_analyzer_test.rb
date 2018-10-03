@@ -56,7 +56,7 @@ class LexicalAnalyzerTest < Minitest::Test
                LexicalRule.new(:equality,   /\A==/ ),
                LexicalRule.new(:assignment, /\A=/  ),
                LexicalRule.new(:integer,    /\A\d+/) { |value|
-                 [@symbol, value.to_i]
+                 [symbol, value.to_i]
                },
                LexicalRule.new(:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/) { |value|
                  ka.renew(text: value).get
