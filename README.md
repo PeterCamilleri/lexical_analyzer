@@ -51,29 +51,19 @@ new method returns the newly created one.
 
 #### Rules
 
-A rule is an array with two or three elements. These elements are:
-
-rule[0] - a symbol that represents this rule.
-
-rule[1] - a regular expression. This must begin with a \\A clause to ensure
-correct operation of the analyzer.
-
-rule[2] - an optional block that generates the output token that corresponds
-to this rule. Some examples of these blocks are:
+The rules are an array of LexicalRule objects. Each consists of a symbol, a
+regular expression, and an optional action.
 
 ```ruby
-# Ignore this input, emit no token.
-Proc.new { false }
+LexicalRule.new(:equality, /\A==/)
 
-# The default block that is used if none is given.
-lambda {|symbol, value| [symbol, value] }
+LexicalRule.new(:spaces, /\A\s+/) {|_value| false }
 
-# A block you might use for an integer token
-lambda {|symbol, value| [symbol, value.to_i] }
+LexicalRule.new(:integer, /\A\d+/) {|value| [@symbol, value.to_i] }
 
-# Take the text retrieved and process it further with another analyzer.
-lambda {|_symbol, value| ka.renew(text: value).get }
-
+LexicalRule.new(:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/) {|value|
+  ka.renew(text: value).get
+}
 ```
 
 Note: The order of rules is important. For example, if there are two rules
@@ -83,7 +73,7 @@ incorrect.
 
 #### Tokens
 
-The token is also an array, with two elements.
+The output token is an array with two elements.
 
 token[0] - the symbol extracted from the rule that generated this token.
 
