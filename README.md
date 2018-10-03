@@ -55,12 +55,17 @@ The rules are an array of LexicalRule objects. Each consists of a symbol, a
 regular expression, and an optional action.
 
 ```ruby
+# Rule with default block returns [:equality, "=="] on a match.
 LexicalRule.new(:equality, /\A==/)
 
+# Rule with an ignore block, ignores matches.
 LexicalRule.new(:spaces, /\A\s+/) {|_value| false }
 
+# Rule with an integer block returns [:integer, an_integer] on a match.
 LexicalRule.new(:integer, /\A\d+/) {|value| [@symbol, value.to_i] }
 
+# Rule with a block that expands of to a sub-rule. Returns the value of the
+# lexical analyzer in the captured variable ka.
 LexicalRule.new(:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/) {|value|
   ka.renew(text: value).get
 }
