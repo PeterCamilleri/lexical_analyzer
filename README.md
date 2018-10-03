@@ -71,7 +71,11 @@ LexicalRule.new(:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/) {|value|
 }
 ```
 
-Note: The order of rules is important. For example, if there are two rules
+Notes:
+
+* The regular expression must begin with a \A clause to ensure correct
+operation of the analyzer.
+* The order of rules is important. For example, if there are two rules
 looking for "==" and "=" respectively, if the "=" is ahead of the "==" rule
 in the array the "==" rule will never trigger and the analysis will be
 incorrect.
