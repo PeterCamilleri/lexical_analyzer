@@ -42,28 +42,25 @@ class LexicalAnalyzerTest < Minitest::Test
                 END_OF_SOURCE
 
     # Set up the keyword sub analyzer.
-    keywords = [
-                [:if,         /\Aif\z/],
-                [:identifier, /.+/    ]
+    keywords = [LexicalRule.new(:if, /\Aif\z/),
+                LexicalRule.new(:identifier, /.+/)
                ]
 
     ka = LexicalAnalyzer.new(rules: keywords)
 
     # Set up the main analyzer.
-    rules  = [ [:spaces,     /\A\s+/,
-                Proc.new { false }
-               ],
-               [:lparen,     /\A\(/ ],
-               [:rparen,     /\A\)/ ],
-               [:semicolon,  /\A;/  ],
-               [:equality,   /\A==/ ],
-               [:assignment, /\A=/  ],
-               [:integer,    /\A\d+/,
-                lambda { |symbol, value| [symbol, value.to_i] }
-               ],
-               [:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/,
-                lambda { |_symbol, value| ka.renew(text: value).get }
-               ]
+    rules  = [ LexicalRule.new(:spaces, /\A\s+/) { |_value| false },
+               LexicalRule.new(:lparen,     /\A\(/ ),
+               LexicalRule.new(:rparen,     /\A\)/ ),
+               LexicalRule.new(:semicolon,  /\A;/  ),
+               LexicalRule.new(:equality,   /\A==/ ),
+               LexicalRule.new(:assignment, /\A=/  ),
+               LexicalRule.new(:integer,    /\A\d+/) { |value|
+                 [@symbol, value.to_i]
+               },
+               LexicalRule.new(:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/) { |value|
+                 ka.renew(text: value).get
+               }
              ]
 
     la = LexicalAnalyzer.new(text: text, rules: rules)
@@ -92,11 +89,11 @@ class LexicalAnalyzerTest < Minitest::Test
     # The source code to be analyzed.
     text   = "123"
 
-    rules  = [ [:one,    /\A1/ ],
-               [:two,    /\A2/ ]
+    rules  = [ LexicalRule.new(:one,    /\A1/ ),
+               LexicalRule.new(:two,    /\A2/ )
              ]
 
-    extra  = [ [:three,  /\A3/  ]]
+    extra  = [ LexicalRule.new(:three,  /\A3/ )]
 
     la = LexicalAnalyzer.new(text: text, rules: rules)
 
