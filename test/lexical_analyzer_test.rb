@@ -49,16 +49,16 @@ class LexicalAnalyzerTest < Minitest::Test
     ka = LexicalAnalyzer.new(rules: keywords)
 
     # Set up the main analyzer.
-    rules  = [ LexicalRule.new(:spaces, /\A\s+/) { false },
+    rules  = [ LexicalRule.new(:spaces, /\A\s+/) { |_value| false },
                LexicalRule.new(:lparen,     /\A\(/ ),
                LexicalRule.new(:rparen,     /\A\)/ ),
                LexicalRule.new(:semicolon,  /\A;/  ),
                LexicalRule.new(:equality,   /\A==/ ),
                LexicalRule.new(:assignment, /\A=/  ),
-               LexicalRule.new(:integer,    /\A\d+/) { |symbol, value|
-                 [symbol, value.to_i]
+               LexicalRule.new(:integer,    /\A\d+/) { |value|
+                 [@symbol, value.to_i]
                },
-               LexicalRule.new(:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/) { |_symbol, value|
+               LexicalRule.new(:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/) { |value|
                  ka.renew(text: value).get
                }
              ]
