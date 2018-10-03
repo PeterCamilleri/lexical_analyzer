@@ -3,10 +3,13 @@
 
 class LexicalRule
 
+  # Read access to the symbol instance variable.
+  attr_reader :symbol
+
   # Create a lexical rule.
   def initialize(symbol, regex, &action)
     @symbol = symbol
-    @regex = regex
+    @regex  = regex
 
     define_singleton_method(:call, &action) if block_given?
   end
@@ -18,7 +21,7 @@ class LexicalRule
 
   # The default rule action.
   def call(value)
-    [@symbol, value]
+    [symbol, value]
   end
 
 end
