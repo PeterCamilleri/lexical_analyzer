@@ -58,6 +58,9 @@ regular expression, and an optional action.
 # Rule with default block returns [:equality, "=="] on a match.
 LexicalRule.new(:equality, /\A==/)
 
+# Rule with block equivalent to the default.
+LexicalRule.new(:lparen, /\A\(/) {|value| [symbol, value]}
+
 # Rule with an ignore block, ignores matches.
 LexicalRule.new(:spaces, /\A\s+/) {|_value| false }
 
@@ -66,9 +69,7 @@ LexicalRule.new(:integer, /\A\d+/) {|value| [symbol, value.to_i] }
 
 # Rule with a block that expands of to a sub-rule. Returns the value of the
 # lexical analyzer in the captured variable ka.
-LexicalRule.new(:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/) {|value|
-  ka.renew(text: value).get
-}
+LexicalRule.new(:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/) {|value| ka.renew(text: value).get}
 ```
 
 Notes:
