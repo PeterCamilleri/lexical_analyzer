@@ -50,19 +50,19 @@ class LexicalAnalyzerTest < Minitest::Test
     ka = LexicalAnalyzer.new(rules: keywords)
 
     # Set up the main analyzer.
-    rules  = [ LexicalRule.new(:spaces, /\A\s+/) { |_value| false },
-               LexicalRule.new(:lparen,     /\A\(/ ),
-               LexicalRule.new(:rparen,     /\A\)/ ),
-               LexicalRule.new(:semicolon,  /\A;/  ),
-               LexicalRule.new(:equality,   /\A==/ ),
-               LexicalRule.new(:assignment, /\A=/  ),
-               LexicalRule.new(:integer,    /\A\d+/) { |value|
-                 [symbol, value.to_i]
-               },
-               LexicalRule.new(:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/) { |value|
-                 ka.renew(text: value).get
-               }
-             ]
+    rules = LexicalRule.instance_exec do
+      [ new(:spaces,     /\A\s+/) { |_value| false },
+        new(:lparen,     /\A\(/ ),
+        new(:rparen,     /\A\)/ ),
+        new(:semicolon,  /\A;/  ),
+        new(:equality,   /\A==/ ),
+        new(:assignment, /\A=/  ),
+        new(:integer,    /\A\d+/) { |value| [symbol, value.to_i]},
+        new(:identifier, /\A[a-zA-Z_]\w*(?=\W|$|\z)/) do |value|
+          ka.renew(text: value).get
+        end
+      ]
+    end
 
     la = LexicalAnalyzer.new(text: text, rules: rules)
 
