@@ -6,8 +6,8 @@ require_relative 'lexical_analyzer/version'
 
 # The RCTP class for lexical analysis.
 class LexicalAnalyzer
-  attr_reader   :text   # Access the text in the analyzer.
-  attr_reader   :rules  # Access the array of lexical rules.
+  attr_reader :text   # Access the text in the analyzer.
+  attr_reader :rules  # Access the array of lexical rules.
 
   # Set things up.
   def initialize(text: "", rules: [])

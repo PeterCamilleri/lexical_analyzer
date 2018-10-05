@@ -1,10 +1,9 @@
 # The Ruby Compiler Toolkit Project - Lexical Rule
 # A rule for lexical analysis.
 
+# The RCTP class for lexical rules.
 class LexicalRule
-
-  # Read access to the symbol instance variable.
-  attr_reader :symbol
+  attr_reader :symbol  # Read access to the symbol instance variable.
 
   # Create a lexical rule.
   def initialize(symbol, regex, &action)
@@ -23,5 +22,4 @@ class LexicalRule
   def call(value)
     [symbol, value]
   end
-
 end
