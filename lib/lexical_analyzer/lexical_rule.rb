@@ -3,7 +3,8 @@
 
 # The RCTP class for lexical rules.
 class LexicalRule
-  attr_reader :symbol  # Read access to the symbol instance variable.
+  attr_reader :symbol  # Read access to the rule's symbol.
+  attr_reader :regex   # Read access to the rule's regex.
 
   # Create a lexical rule.
   def initialize(symbol, regex, &action)
