@@ -88,6 +88,8 @@ operation of the analyzer.
 looking for "==" and "=" respectively, if the "=" is ahead of the "==" rule
 in the array the "==" rule will never trigger and the analysis will be
 incorrect.
+* The method LexicalRule#symbol is a read accessor for the symbol property of
+the lexical rule.
 
 #### Tokens
 
