@@ -6,6 +6,9 @@ tokens that it detects. This process is shown below:
 
 ![The Lexical Process](./images/lexical_process.png)
 
+In general, each time the lexical_analyzer receives the "get" message, it tries
+to extract another token from the source text.
+
 The lexical analyzer is normally used in conjunction with a parse queue object
 which handles queuing of tokens and back tracking of the compile process when
 needed. In the rcpt this is done by the gem
