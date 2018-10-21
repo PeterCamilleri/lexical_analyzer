@@ -2,9 +2,14 @@
 
 The lexical analyzer is a component of the Ruby Compiler Toolkit Project that
 scans an input text against an array of rules and generating the lexical
-tokens that it detects. It is normally used in conjunction with a parse queue
-object which handles queuing of tokens and back tracking of the compile process
-when needed.
+tokens that it detects. This process is shown below:
+
+![The Lexical Process](./images/lexical_process.png)
+
+The lexical analyzer is normally used in conjunction with a parse queue object
+which handles queuing of tokens and back tracking of the compile process when
+needed. In the rcpt this is done by the gem
+[parse_queue](https://github.com/PeterCamilleri/parse_queue).
 
 ## Installation
 
