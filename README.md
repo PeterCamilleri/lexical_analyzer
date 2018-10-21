@@ -84,6 +84,8 @@ Notes:
 
 * The regular expression must begin with a \A clause to ensure correct
 operation of the analyzer.
+* An exception to the above is the use of the expression /.+/ at the end of the
+rule list as a sort of lexical "else" catch-all clause.
 * The order of rules is important. For example, if there are two rules
 looking for "==" and "=" respectively, if the "=" is ahead of the "==" rule
 in the array the "==" rule will never trigger and the analysis will be
