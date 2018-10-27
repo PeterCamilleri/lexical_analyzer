@@ -1,13 +1,16 @@
 # LexicalAnalyzer
 
-The lexical analyzer is a component of the Ruby Compiler Toolkit Project that
-scans an input text against an array of rules and generating the lexical
+The lexical analyzer is a component of the Ruby Compiler Toolkit Project (rctp)
+that scans an input text against an array of rules and generating the lexical
 tokens that it detects. This process is shown below:
 
 ![The Lexical Process](./images/lexical_process.png)
 
 In general, each time the lexical_analyzer receives the "get" message, it tries
-to extract another token from the source text.
+to extract another token from the source text. As such, the lexical analyzer
+gem component is the first stage of the compilation process for a compiler
+built using the rctp. With its array of lexical rules it provides the language
+tokens needed to operate the compiler's parser.
 
 The lexical analyzer is normally used in conjunction with a parse queue object
 which handles queuing of tokens and back tracking of the compile process when
