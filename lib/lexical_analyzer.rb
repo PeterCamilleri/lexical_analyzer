@@ -23,8 +23,8 @@ class LexicalAnalyzer
   end
 
   # Get the next lexical token
-  def get(extra=[])
-    (rules + extra).each do |rule|
+  def get(extra=nil)
+    (extra ? rules + extra : rules).each do |rule|
       if match_data = rule.match(text)
         @text = match_data.post_match
         return rule.call(match_data.to_s) || get
